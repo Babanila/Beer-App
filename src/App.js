@@ -1,14 +1,22 @@
 import React, { Component } from "react";
+// import axios from "axios";
 import NavBar from "../src/components/navbar";
 import InputForm from "../src/components/inputForm";
+import Beer from "../src/components/beer";
 
 class App extends Component {
-  state = {
-    value: ""
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: "",
+      beerValue: "",
+      hideForm: false,
+      hideTable: true
+    };
+  }
 
   handleInputChange = event => {
-    console.log(event.target.value);
     this.setState({
       value: event.target.value
     });
@@ -16,8 +24,11 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const sKey = this.state.value;
-    console.log(sKey);
+    this.setState({
+      beerValue: this.state.value,
+      hideForm: true,
+      hideTable: false
+    });
   };
 
   render() {
@@ -26,7 +37,13 @@ class App extends Component {
         <NavBar />
         <InputForm
           onChange={this.handleInputChange}
-          onClick={this.handleSubmit}
+          onSubmit={this.handleSubmit}
+          hideForm={this.state.hideForm}
+        />
+        <Beer
+          keyValue={this.state.beerValue}
+          hideTable={this.state.hideTable}
+          onClick={this.handleClick}
         />
       </div>
     );
