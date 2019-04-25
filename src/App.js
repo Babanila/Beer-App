@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-// import axios from "axios";
 import NavBar from "../src/components/navbar";
 import InputForm from "../src/components/inputForm";
 import Beer from "../src/components/beer";
+import SingleBeer from "../src/components/singleBeer";
 
 class App extends Component {
   constructor(props) {
@@ -11,8 +11,10 @@ class App extends Component {
     this.state = {
       value: "",
       beerValue: "",
+      idValue: "",
       hideForm: false,
-      hideTable: true
+      hideTable: true,
+      hideBeerDetails: true
     };
   }
 
@@ -31,6 +33,22 @@ class App extends Component {
     });
   };
 
+  handleClick = event => {
+    this.setState({
+      idValue: event.target.dataset.value,
+      hideTable: true,
+      hideBeerDetails: false
+    });
+  };
+
+  goBack = event => {
+    this.setState({
+      beerValue: this.state.value,
+      hideTable: false,
+      hideBeerDetails: true
+    });
+  };
+
   render() {
     return (
       <div>
@@ -44,6 +62,12 @@ class App extends Component {
           keyValue={this.state.beerValue}
           hideTable={this.state.hideTable}
           onClick={this.handleClick}
+        />
+        <SingleBeer
+          keyValue={this.state.beerValue}
+          idValue={this.state.idValue}
+          hideBeerDetails={this.state.hideBeerDetails}
+          onClick={this.goBack}
         />
       </div>
     );
