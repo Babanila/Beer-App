@@ -41,16 +41,15 @@ class SingleBeer extends Component {
       <div className={beerDetailsHidden}>
         <div className="list-group">
           {this.beerDetails(this.state.singleBeer)}
+          <button
+            className="btn bg-light btn-lg w50 font-weight-bold"
+            onClick={e => {
+              this.props.onClick();
+            }}
+          >
+            back
+          </button>
         </div>
-        <button
-          type="button"
-          className="btn btn-outline-dark btn-lg btn-block"
-          onClick={e => {
-            this.props.onClick(e);
-          }}
-        >
-          back
-        </button>
       </div>
     );
   }

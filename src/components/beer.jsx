@@ -17,36 +17,40 @@ class Beer extends Component {
     }
   }
 
+  listOfBeer = beerList =>
+    beerList.map((beer, i) => (
+      <tr key={beer.id}>
+        <th scope="row" data-value={beer.id}>
+          {i + 1}
+        </th>
+        <td data-value={beer.id}>{beer.id}</td>
+        <td data-value={beer.id}>{beer.name}</td>
+        <td data-value={beer.id}>{beer.ibu}</td>
+        <td data-value={beer.id}>{beer.abv}</td>
+      </tr>
+    ));
+
   render() {
+    const { beerList } = this.state;
     const tableHidden = this.props.hideTable ? "hidden" : "";
     return (
-      <div className={tableHidden}>
+      <div
+        className={tableHidden}
+        onClick={e => {
+          this.props.onClick(e);
+        }}
+      >
         <table className="table table-hover">
           <thead className="thead-ligth">
             <tr>
-              <th>#</th>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Abv</th>
-              <th>Status</th>
+              <th scope="col">#</th>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Ibu</th>
+              <th scope="col">Abv</th>
             </tr>
           </thead>
-          <tbody>
-            {this.state.beerList.map((beer, i) => (
-              <tr
-                key={beer.id}
-                onClick={e => {
-                  this.props.onClick(e);
-                }}
-              >
-                <td>{i + 1}</td>
-                <td>{beer.id}</td>
-                <td>{beer.name}</td>
-                <td>{beer.abv}</td>
-                <td>{beer.status}</td>
-              </tr>
-            ))}
-          </tbody>
+          <tbody>{this.listOfBeer(beerList)}</tbody>
         </table>
       </div>
     );

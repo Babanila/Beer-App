@@ -1,24 +1,26 @@
 import React from "react";
 
-// Stateless Functional Component
 const InputForm = props => {
   const formHidden = props.hideForm ? "hidden" : "";
-
   return (
     <div className={formHidden}>
-      <form onSubmit={e => props.onSubmit(e)}>
-        <h5> {props.value !== "" && "Please enter your Sandbox Key"}</h5>
-
+      <form
+        className="form-control-lg ml-5 mt-5"
+        onSubmit={e => props.onSubmit(e)}
+      >
+        <label className="btn col-sm-7">
+          <h3> Get the list of beers</h3>
+        </label>
+        <br />
         <input
           type="text"
-          className="navbar-brand w-50 mt-2 mb-2"
-          name="sandboxKey"
+          className="btn btn-lg col-sm-10 w-50 ml-5 mr-3 border border-dark"
+          placeholder="Please click here to enter your sandbox key."
           value={props.value}
           onChange={e => props.onChange(e)}
         />
-        <br />
         <input
-          className="btn btn-primary btn-sm"
+          className="btn btn-primary btn-lg mt-2 mb-2"
           type="submit"
           value="Submit"
         />

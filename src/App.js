@@ -26,11 +26,13 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({
-      beerValue: this.state.value,
-      hideForm: true,
-      hideTable: false
-    });
+    this.state.value === ""
+      ? event.preventDefault()
+      : this.setState({
+          beerValue: this.state.value,
+          hideForm: true,
+          hideTable: false
+        });
   };
 
   handleClick = event => {
@@ -41,7 +43,7 @@ class App extends Component {
     });
   };
 
-  goBack = event => {
+  goBack = () => {
     this.setState({
       beerValue: this.state.value,
       hideTable: false,
