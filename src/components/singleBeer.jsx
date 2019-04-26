@@ -25,11 +25,11 @@ class SingleBeer extends Component {
     Object.entries(singleBeer).map(([k, value], i) => {
       return typeof value !== "object" ? (
         <div key={i} className="list-group-item">
-          <b>{k}</b>: {value}
+          <strong>{k}</strong>: {value}
         </div>
       ) : (
         <div key={i} className="list-group-item">
-          <b>{k}</b>:{this.beerDetails(value)}
+          <strong>{k}</strong>:{this.beerDetails(value)}
         </div>
       );
     });
@@ -40,6 +40,9 @@ class SingleBeer extends Component {
     return (
       <div className={beerDetailsHidden}>
         <div className="list-group">
+          <div className="btn bg-light btn-lg font-weight-bold">
+            Beer details
+          </div>
           {this.beerDetails(this.state.singleBeer)}
           <button
             className="btn bg-light btn-lg w50 font-weight-bold"
