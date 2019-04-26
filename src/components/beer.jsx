@@ -1,23 +1,19 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-class Beer extends Component {
-  state = {
-    beerList: []
-  };
+function Beer(props) {
+  const [beerList, setBeerList] = useState([]);
 
-  async componentDidUpdate(prevProps) {
-    if (this.props.keyValue !== prevProps.keyValue) {
-      const url = `http://localhost:5000/${this.props.keyValue}`;
-      const result = await axios.get(url);
-      const { data } = result.data;
-      this.setState({
-        beerList: data
-      });
-    }
-  }
+  useEffect(() => {
+    const getData = async () => {
+      const url = `http://localhost:5000/${props.keyValue}`;
+      const { data } = await axios.get(url).then(res => res.data);
+      setBeerList(data);
+    };
+    getData();
+  }, [props.keyValue]);
 
-  listOfBeer = beerList =>
+  const listOfBeer = beerList =>
     beerList.map((beer, i) => (
       <tr key={beer.id}>
         <th scope="row" data-value={beer.id}>
@@ -30,16 +26,19 @@ class Beer extends Component {
       </tr>
     ));
 
-  render() {
-    const { beerList } = this.state;
-    const tableHidden = this.props.hideTable ? "hidden" : "";
-    return (
-      <div
-        className={tableHidden}
-        onClick={e => {
-          this.props.onClick(e);
-        }}
-      >
+  const tableHidden = props.hideTable ? "hidden" : "";
+
+  return (
+    <div
+      className={tableHidden}
+      onClick={e => {
+        props.onClick(e);
+      }}
+    >
+      <h1 className="btn btn-lg font-weight-bold d-flex justify-content-center">
+        The list of beers
+      </h1>
+      <div>
         <table className="table table-hover">
           <thead className="thead-ligth">
             <tr>
@@ -50,11 +49,11 @@ class Beer extends Component {
               <th scope="col">Abv</th>
             </tr>
           </thead>
-          <tbody>{this.listOfBeer(beerList)}</tbody>
+          <tbody>{listOfBeer(beerList)}</tbody>
         </table>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Beer;
