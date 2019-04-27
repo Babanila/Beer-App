@@ -7,8 +7,12 @@ function Beer(props) {
   useEffect(() => {
     const getData = async () => {
       const url = `http://localhost:5000/${props.keyValue}`;
-      const { data } = await axios.get(url).then(res => res.data);
-      setBeerList(data);
+      try {
+        const {
+          data: { data }
+        } = await axios.get(url);
+        setBeerList(data);
+      } catch (_) {}
     };
     getData();
   }, [props.keyValue]);

@@ -12,11 +12,12 @@ class SingleBeer extends Component {
         const url = `http://localhost:5000/${this.props.keyValue}/${
           this.props.idValue
         }`;
-        const result = await axios.get(url);
-        const { data } = result;
-        this.setState({
-          singleBeer: data
-        });
+        try {
+          const { data } = await axios.get(url);
+          this.setState({
+            singleBeer: data
+          });
+        } catch (_) {}
       }
     }
   }
