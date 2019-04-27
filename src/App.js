@@ -18,10 +18,8 @@ class App extends Component {
     };
   }
 
-  handleInputChange = event => {
-    this.setState({
-      value: event.target.value
-    });
+  handleInputChange = ({ target: { value } }) => {
+    this.setState({ value });
   };
 
   handleSubmit = event => {
